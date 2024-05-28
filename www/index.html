@@ -1,0 +1,11 @@
+Hello World!!<br>This is index.html
+<div id='count'></div>
+<script>
+    async function count() {
+        const response = await fetch('/api/count');
+        const count = await response.text();
+        document.getElementById('count').innerText = `Count: ${count}`;
+    }
+
+    count();
+</script>

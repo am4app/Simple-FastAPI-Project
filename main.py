@@ -4,9 +4,8 @@ from fastapi.staticfiles import StaticFiles
 import asyncio
 import os
 
-os.makedirs("./www", exist_ok=True)
-with open("./www/index.html", mode="w", encoding="utf-8") as f:
-    f.write("Hello World!!<br>This is index.html")
+count = 0
+
 app = FastAPI()
 
 @app.get("/hello_world")
@@ -17,6 +16,12 @@ def hello_world():
 async def async_hello_world():
     await asyncio.sleep(1)
     return PlainTextResponse("Async Hello World!!")
+
+@app.get("/api/count")
+async def counter():
+    global count
+    count += 1
+    return PlainTextResponse(str(count))
 
 app.mount("/", StaticFiles(directory="./www", html=True), name="html")
 
